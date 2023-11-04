@@ -27,12 +27,12 @@ const SingUp = () => {
             })
     }
     return (
-        <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content flex-col lg:flex-row">
-            <div className=" w-1/2 mr-12 hidden lg:block">
+        <div className="">
+        <div className="flex justify-around items-center py-10 px-2 lg:px-10   flex-col lg:flex-row">
+            <div className=" w-1/2 mr-12 hidden lg:flex ">
                 <img src={imgLog2} className="rounded-xl" alt="" />
             </div>
-            <div className="card flex-shrink-0 w-full  max-w-sm shadow-2xl bg-base-100 ">
+            <div className=" rounded-xl  w-full  max-w-sm  p-1 lg:px-3 border-2  ">
                 <h1 className='text-3xl text-center font-bold mt-4'>Sing Up</h1>
                 <form onSubmit={handleSingUp} className="">
                     <div className="form-control">
