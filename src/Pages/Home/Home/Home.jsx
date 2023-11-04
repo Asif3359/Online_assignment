@@ -9,6 +9,7 @@ const Home = () => {
     return (
         <div className="space-y-10">
             <Baner></Baner>
+            <About></About>
             <Services></Services>
             <ContactInfo></ContactInfo>
             <Faq></Faq>
