@@ -11,6 +11,7 @@ import MyAssignments from '../../Pages/MyAssignments/MyAssignments';
 import CreateAssignments from '../../Pages/CreateAssignments/CreateAssignments';
 import ViewAssignment from '../../Pages/ViewAssignment/ViewAssignment';
 import UpdateAssignment from '../../Pages/UpdateAssignment/UpdateAssignment';
+import TakeAssignment from '../../Pages/TakeAssignment/TakeAssignment';
 
 const router = createBrowserRouter([
     {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
         },
         {
             path:"/profile",
-            element:<Profile></Profile>
+            element:<PrivateRoute><Profile></Profile></PrivateRoute>
         },
         {
             path:"/login",
@@ -64,6 +65,12 @@ const router = createBrowserRouter([
         {
             path:"/update/:id",
             element:<PrivateRoute><UpdateAssignment></UpdateAssignment></PrivateRoute>,
+            loader:({params})=>fetch(`http://localhost:5000/assignment/${params.id}`)
+        },
+        {
+            path:"/take/:id",
+            element:<PrivateRoute><TakeAssignment></TakeAssignment></PrivateRoute>,
+            loader:({params})=>fetch(`http://localhost:5000/assignment/${params.id}`)
         },
       ]
     },

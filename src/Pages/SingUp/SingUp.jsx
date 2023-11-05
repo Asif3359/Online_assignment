@@ -1,72 +1,226 @@
-import { useContext } from "react";
-import imgLog2 from "../../assets/images/login/12085707_20944201.jpg"
-import { Link } from 'react-router-dom';
-import { AuthContext } from "../../Providers/AuthProviders";
-
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import img1 from "../../assets/images/login/12085707_20944201.jpg"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../../Providers/AuthProviders';
 const SingUp = () => {
 
+    const [registerSuccessMessage, setRegisterSuccessMessage] = useState(null);
+    const [registerErrorMessage, setRegisterErrorMessage] = useState(null);
 
-    const {createUser}=useContext(AuthContext);
+    const { createUser, socialLogIn, profile } = useContext(AuthContext)
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const handleSingUp = (event) => {
-        event.preventDefault();
-        const from = event.target;
-        const name = from.name.value;
-        const email = from.email.value;
-        const password = from.password.value;
-
-        console.log(name,email,password);
-
-        createUser(email,password)
-            .then(result =>{
-                const user=result.user;
+    const handleRegister = (e) => {
+        e.preventDefault()
+        const Name = e.target.name.value;
+        const Email = e.target.email.value;
+        const Photo = e.target.photo.value;
+        const Password = e.target.password.value;
+        console.log(Name, Email, Photo, Password);
+        if (Password.length < 6) {
+            setRegisterErrorMessage("password is less than 6 characters")
+            return;
+        }
+        // if(/^(?=.*[a-z])/.test(Password)){
+        //     return setRegisterErrorMessage("don't have a capital letter")
+        // }
+        if (!/[A-Z]/.test(Password)) {
+            return setRegisterErrorMessage("don't have a capital letter")
+        }
+        if (!/[@#$%^&!]/.test(Password)) {
+            return setRegisterErrorMessage(" don't have a special character")
+        }
+        createUser(Email, Password)
+            .then(result => {
+                profile(Name, Photo)
+                    .then(result => {
+                        const user = result.user;
+                    })
+                    .catch(error => {
+                        const errorCode = error.code;
+                        console.log(errorCode);
+                    })
+                const user = result.user;
                 console.log(user);
-            } )
-            .catch(error=>{
-                console.log(error);
+                const ourUsr = {
+                    email: user.email,
+                    lastLogAt: user.metadata?.lastSignInTime,
+                    displayName: Name,
+                    photoURL: Photo
+                }
+                console.log(ourUsr);
+                fetch('https://brand-server-asif-ahammeds-projects.vercel.app/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(ourUsr)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        navigate(location?.state ? location.state : "/");
+                        console.log(data.acknowledged);
+                    })
+                setRegisterSuccessMessage("User Successfully register ");
+                navigate(location?.state ? location.state : "/")
+                toast.success('User Successfully register', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+
+            })
+            .catch(error => {
+                setRegisterErrorMessage(error.message);
+                toast.error('User could not register successfully', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            })
+
+    }
+    const socialLoginWith = (googleLogIn) => {
+        setRegisterSuccessMessage("");
+        setRegisterErrorMessage("");
+
+        googleLogIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                const ourUsr = {
+                    email: user.email,
+                    lastLogAt: user.metadata?.lastSignInTime,
+                    displayName: user.displayName,
+                }
+                fetch('https://brand-server-asif-ahammeds-projects.vercel.app/users', {
+                    method: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(ourUsr)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        navigate(location?.state ? location.state : "/");
+                        console.log(data.acknowledged);
+                    })
+                setRegisterSuccessMessage("User Successfully login ");
+                navigate(location?.state ? location.state : "/");
+                toast.success('User Successfully login', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            })
+            .catch(error => {
+                console.log(error.message);
+                setRegisterErrorMessage(error.message);
+                toast.error('User could not login successfully', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             })
     }
-    return (
-        <div className="">
-        <div className="flex justify-around items-center py-10 px-2 lg:px-10   flex-col lg:flex-row">
-            <div className=" w-1/2 mr-12 hidden lg:flex ">
-                <img src={imgLog2} className="rounded-xl" alt="" />
-            </div>
-            <div className=" rounded-xl  w-full  max-w-sm  p-1 lg:px-3 border-2  ">
-                <h1 className='text-3xl text-center font-bold mt-4'>Sing Up</h1>
-                <form onSubmit={handleSingUp} className="">
-                    <div className="form-control">
-                        <label htmlFor="name" className="label">
-                            <span className="label-text">Name</span>
-                        </label>
-                        <input type="name" id="name" name='name' placeholder="name" className="input input-bordered" required />
-                    </div>
-                    <div className="form-control">
-                        <label htmlFor="email" className="label">
-                            <span className="label-text">Email</span>
-                        </label>
-                        <input type="email" id="email" name='email' placeholder="email" className="input input-bordered" required />
-                    </div>
-                    <div className="form-control">
-                        <label htmlFor="password" className="label">
-                            <span className="label-text">Confirm Password</span>
-                        </label>
-                        <input type="password" id="password" name='password' placeholder="Confirm Password" className="input input-bordered" required />
-                        <label htmlFor="link" className="label">
-                            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                        </label>
-                    </div>
-                    <div className="form-control mt-6">
-                        <input type='submit' id="name" value="Sing Up" className="btn btn-primary" />
-                    </div>
-                    <div className='my-4 text-center'>
-                        <p>Already Have an Account  <Link to="/login" className='text-orange-400'>login</Link></p>
-                    </div>
-                </form>
 
+    return (
+        <div className='flex justify-between items-center'>
+            <div className='flex-1 hidden lg:flex justify-center items-center'>
+                <img src={img1} alt="" className='w-3/4 rounded-3xl' />
+            </div>
+            <div className='flex-1'>
+                <section className="">
+                    <div className="flex flex-col items-center justify-center px-2 py-4 mx-auto my-5 ">
+                        <div className="w-full  rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 ">
+                            <div className="p-6 sm:p-8">
+                                <h1 className="text-xl font-bold leading-tight tracking-tight md:text-2xl ">
+                                    Register
+                                </h1>
+                                <form onSubmit={handleRegister} className="space-y-2 md:space-y-3 mt-5 mb-3" action="#">
+                                    <div>
+                                        <label htmlFor="name" className="block mb-2 text-sm font-medium ">Your name</label>
+                                        <input type="text" name="name" id="name" className=" border border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="full name" required />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="photo" className="block mb-2 text-sm font-medium ">Your photo url</label>
+                                        <input type="text" name="photo" id="photo" className=" border border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="email" className="block mb-2 text-sm font-medium ">Your email</label>
+                                        <input type="email" name="email" id="email" className=" border border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="password" className="block mb-2 text-sm font-medium ">Password</label>
+                                        <input type="password" name="password" id="password" placeholder="••••••••" className=" border border-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" required="please select this" />
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-start">
+                                            <div className="flex items-center h-5">
+                                                <input id="remember" aria-describedby="remember" type="checkbox" className="w-4 h-4 border border-gray-300 rounded  focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required />
+                                            </div>
+                                            <div className="ml-3 text-sm">
+                                                <label htmlFor="remember" className="text-gray-500 dark:text-gray-300"> Accept Our Terms And Condition</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="submit" value="Register" className="w-full btn btn-sm " />
+                                    <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                                        Already have an account yet? <Link to="/login" className="font-medium text-primary-600 hover:underline text-yellow-500">login</Link>
+                                    </p>
+                                </form>
+                                <div className='text-center flex flex-col space-y-2'>
+                                    <h1 className=''>Login WIth</h1>
+                                    <div className='border'></div>
+                                    <div className='flex justify-start item-center w-full'>
+                                        <button onClick={() => socialLoginWith(socialLogIn)} className='btn btn-sm w-1/2 '>Google</button>
+                                    </div>
+                                </div>
+                                {
+                                    registerSuccessMessage
+                                    &&
+                                    <div className='py-1'>
+                                        <p className='text-green-500'>{registerSuccessMessage}</p>
+                                    </div>
+                                }
+                                {
+                                    registerErrorMessage
+                                    &&
+                                    <div>
+                                        <p className='text-red-500'>{registerErrorMessage}</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
-    </div>
     );
 };
 

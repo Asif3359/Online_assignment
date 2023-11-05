@@ -9,7 +9,7 @@ const Assignments = () => {
     const { user } = useAuth();
     const [assignments, setAssignments] = useState([]);
     const navigate = useNavigate();
-    const location= useLocation();
+    const location = useLocation();
     const [selectedDifficulty, setSelectedDifficulty] = useState('All'); // Initialize with 'All' as the default difficulty
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const Assignments = () => {
 
                 setAssignments(filteredAssignments)
             })
-    }, [assignments])
+    }, [assignments, selectedDifficulty])
 
 
 
@@ -86,7 +86,29 @@ const Assignments = () => {
                 });
             }
             else { // Make sure 'location' is defined appropriately
-                navigate('/login', { state: location.pathname});
+                navigate('/login', { state: location.pathname });
+            }
+        }
+    }
+    const handleUpdate = (_id, email) => {
+        if (user?.email === email) {
+            navigate(`/update/${_id}`)
+        }
+        else {
+            if (user?.email) {
+                toast.warn('👾You Are Not Able To update It !', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }
+            else { // Make sure 'location' is defined appropriately
+                navigate('/login', { state: location.pathname });
             }
         }
     }
@@ -113,7 +135,7 @@ const Assignments = () => {
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
-                    assignments.map((assignment, index) => <Assignment key={assignment._id} assignment={assignment} handleDelete={handleDelete}></Assignment>)
+                    assignments.map((assignment, index) => <Assignment key={assignment._id} assignment={assignment} handleDelete={handleDelete} handleUpdate={handleUpdate}></Assignment>)
                 }
             </div>
         </div>

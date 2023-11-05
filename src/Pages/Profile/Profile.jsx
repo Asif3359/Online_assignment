@@ -8,7 +8,7 @@ const Profile = () => {
     return (
         <div className='flex justify-center items-center h-[70vh]'>
             <div>
-                <h1>{user.email}</h1>
+                <h1>{user?.email}</h1>
                 <h1>Profile</h1>
             </div>
         </div>

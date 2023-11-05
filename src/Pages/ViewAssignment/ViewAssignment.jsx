@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const ViewAssignment = () => {
     const assignment = useLoaderData();
@@ -16,7 +16,7 @@ const ViewAssignment = () => {
                     <h5 className="mb-2  font-bold tracking-tight ">Marks: {assignment.marks}</h5>
                     <h5 className="mb-2  font-bold tracking-tight ">Submission Date : {assignment.dueDate}</h5>
                     <p className="mb-3 font-normal  ">{assignment.description}</p>
-                    <button className='btn btn-sm btn-primary'>Take Assignment</button>
+                    <Link to={`/take/${assignment._id}`}  className='btn btn-sm btn-primary'>Take Assignment</Link >
                 </div>
             </div>
 

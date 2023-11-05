@@ -35,11 +35,11 @@ const Faq = () => {
             <div className='flex-1 space-y-3'>
                 <div className=' flex flex-col space-y-1'>
                     <label htmlFor="email" className='text-left'>Your Email</label>
-                    <input type="email" name="email" id="email" placeholder='@email' className='w-full p-3 rounded-lg' />
+                    <input type="email" name="email" id="email" placeholder='@email' className='w-full p-3 rounded-lg border-2' />
                 </div>
                 <div className='flex flex-col space-y-1'>
                     <label htmlFor="email" className='text-left'>Your Question</label>
-                    <textarea  rows="5" placeholder='Enter Your Question ?'  className='w-full h-fit p-3 rounded-lg'/>
+                    <textarea  rows="5" placeholder='Enter Your Question ?'  className='w-full h-fit p-3 rounded-lg border-2'/>
                 </div>
             </div>
         </div>

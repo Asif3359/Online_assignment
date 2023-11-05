@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import logo1 from "../../../assets/images/banner/7.jpg"
 import { AuthContext } from '../../../Providers/AuthProviders';
 import useAuth from '../../../Hooks/useAuth';
+import { IoPersonCircle } from "react-icons/io5";
 
 const NavBar = () => {
 
@@ -44,7 +45,7 @@ const NavBar = () => {
                         {links}
                     </ul>
                 </div>
-                <Link to="/" className=" normal-case text-xl w-20"><img className='w-16 rounded-full' src={logo1} alt="" /></Link>
+                <Link to="/" className=" normal-case text-xl w-20"><img className='w-20 rounded-full border-2' src={logo1} alt="" /></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -52,10 +53,16 @@ const NavBar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <><NavLink to="/profile">profile</NavLink></>
+                <><NavLink to="/profile">
+                    {
+                        user?.email?<><img src={user.photoURL} className='w-12 rounded-full btn btn-circle' alt="" /></>:<span className='text-4xl '><IoPersonCircle></IoPersonCircle></span>
+                    }
+                </NavLink></>
             </div>
         </div>
     );
 };
 
 export default NavBar;
+
+// IoPersonCircle
