@@ -5,7 +5,7 @@ const Faq = () => {
         <div className='mt-5 lg:mt-10 flex justify-between items-start gap-10 '>
             <div className='flex-1 space-y-1'>
                 <div className="collapse collapse-arrow  text-left">
-                    <input type="radio" name="my-accordion-2" checked="checked" />
+                    <input type="radio" name="my-accordion-2" defaultChecked="checked" />
                     <div className="collapse-title text-xl font-medium">
                         Click to open this one and close others
                     </div>

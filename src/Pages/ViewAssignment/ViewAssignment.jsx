@@ -1,0 +1,27 @@
+import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+
+const ViewAssignment = () => {
+    const assignment = useLoaderData();
+    return (
+        <div className=' py-5 container mx-auto '>
+
+            <div className="relative grid grid-cols-1 lg:grid-cols-4 gap-4  items-center  border border-gray-200 ">
+                <div className='lg:col-span-3 '>
+                    <img className=" h-[50vh] md:h-[80vh] w-full  " src={assignment.thumbnailURL} alt="" />
+                </div>
+                <div className=" p-2">
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight ">{assignment.title}</h5>
+                    <h5 className="mb-2  font-bold tracking-tight ">{assignment.difficulty}</h5>
+                    <h5 className="mb-2  font-bold tracking-tight ">Marks: {assignment.marks}</h5>
+                    <h5 className="mb-2  font-bold tracking-tight ">Submission Date : {assignment.dueDate}</h5>
+                    <p className="mb-3 font-normal  ">{assignment.description}</p>
+                    <button className='btn btn-sm btn-primary'>Take Assignment</button>
+                </div>
+            </div>
+
+        </div>
+    );
+};
+
+export default ViewAssignment;

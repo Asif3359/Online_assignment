@@ -22,11 +22,11 @@ const NavBar = () => {
 
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
+        <li><NavLink to="/assignments">Assignments</NavLink></li>
         {
             user?.email ? <>
-                <li><NavLink to="/assignments">Assignments</NavLink></li>
-                <li><NavLink to="/myAssignments">My Assignments</NavLink></li>
-                <li><NavLink to="/createAssignments"> create assignments</NavLink></li>
+                <li><NavLink to="/myAss">My Assignments</NavLink></li>
+                <li><NavLink to="/create"> create assignments</NavLink></li>
                 <li><button onClick={handleLogOut} >logOut</button></li>
             </> : <li><NavLink to="/login">Login</NavLink></li>
 

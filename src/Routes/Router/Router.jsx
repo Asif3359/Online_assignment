@@ -9,6 +9,8 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import Assignments from '../../Pages/Assignments/Assignments';
 import MyAssignments from '../../Pages/MyAssignments/MyAssignments';
 import CreateAssignments from '../../Pages/CreateAssignments/CreateAssignments';
+import ViewAssignment from '../../Pages/ViewAssignment/ViewAssignment';
+import UpdateAssignment from '../../Pages/UpdateAssignment/UpdateAssignment';
 
 const router = createBrowserRouter([
     {
@@ -43,17 +45,25 @@ const router = createBrowserRouter([
         // },
         {
             path:"/assignments",
-            element:<PrivateRoute><Assignments></Assignments></PrivateRoute>,
-            loader: ()=>fetch('/features.json')
+            element:<Assignments></Assignments>,
         },
         {
-            path:"/myAssignments",
+            path:"/myAss",
             element:<PrivateRoute><MyAssignments></MyAssignments></PrivateRoute>,
-            loader: ()=>fetch('/features.json')
+            loader: ()=>fetch('http://localhost:5000/assignment')
         },
         {
-            path:"/createAssignments",
+            path:"/create",
             element:<PrivateRoute><CreateAssignments></CreateAssignments></PrivateRoute>,
+        },
+        {
+            path:"/view/:id",
+            element:<PrivateRoute><ViewAssignment></ViewAssignment></PrivateRoute>,
+            loader:({params})=>fetch(`http://localhost:5000/assignment/${params.id}`)
+        },
+        {
+            path:"/update/:id",
+            element:<PrivateRoute><UpdateAssignment></UpdateAssignment></PrivateRoute>,
         },
       ]
     },
