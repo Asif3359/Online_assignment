@@ -2,10 +2,12 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import useAuth from '../../Hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const CreateAssignments = () => {
 
     const {user}=useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,9 +20,11 @@ const CreateAssignments = () => {
         const dueDate = from.dueDate.value;
         const description = from.description.value;
         const email=user.email;
+        const displayName= user.displayName;
+        const photoURL=user.photoURL;
 
         const assignment = {
-            title, marks, thumbnailURL, difficulty, dueDate, description,email
+            title, marks, thumbnailURL, difficulty, dueDate, description,email,photoURL,displayName
         }
         console.log(assignment);
 
@@ -28,7 +32,9 @@ const CreateAssignments = () => {
             .then((response) => {
                 // Handle the successful response here
                 console.log('POST request successful', response.data);
+                navigate("/assignments");
                 from.reset();
+
             })
             .catch((error) => {
                 // Handle any errors that occurred during the POST request

@@ -1,6 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SubmitAssign = ({ submitAssignment }) => {
+
+    console.log(submitAssignment);
+
     return (
         <tr>
             <td>
@@ -10,8 +14,9 @@ const SubmitAssign = ({ submitAssignment }) => {
                 <h1>{submitAssignment.userSubmit}</h1>
             </td>
             <td>{submitAssignment.marks}</td>
+            <td>{submitAssignment?.pending?<>Pending</>:<>Done</>}</td>
             <th>
-                <button className="btn btn-ghost btn-xs btn-warning btn-outline">give mark</button>
+                <Link to={`/mark/${submitAssignment._id}`} className="btn btn-ghost btn-xs btn-warning btn-outline">give mark</Link>
             </th>
         </tr>
     );

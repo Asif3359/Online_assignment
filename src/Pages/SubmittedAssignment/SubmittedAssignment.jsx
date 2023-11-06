@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import SubmitAssign from './SubmitAssign';
+import { AuthContext } from '../../Providers/AuthProviders';
 
 const SubmittedAssignment = () => {
-    // const submitAssignment = useLoaderData();
+    const {user}=useContext(AuthContext);
     const [submitAssignments, setSubmitAssignments] = useState([])
     useEffect(() => {
         fetch(`http://localhost:5000/submitAssignment`)
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 const PendingAssignment = data.filter((assignment) => assignment.pending === true);
-                setSubmitAssignments(PendingAssignment);
+                const PendingAssignmentForUser = PendingAssignment.filter((assignment)=>assignment.email===user.email);
+                setSubmitAssignments(PendingAssignmentForUser);
             })
     }, [])
     return (
@@ -31,6 +34,7 @@ const SubmittedAssignment = () => {
                             <th>Title</th>
                             <th>Examinee Name</th>
                             <th>Assignment Marks</th>
+                            <th>Pending Status</th>
                             <th>Give Mark</th>
                         </tr>
                     </thead>

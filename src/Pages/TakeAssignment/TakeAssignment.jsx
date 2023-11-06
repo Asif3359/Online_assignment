@@ -1,15 +1,17 @@
 import React, { useContext } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProviders';
 import axios from 'axios';
 
 const TakeAssignment = () => {
     const assignment = useLoaderData();
     const {user}= useContext(AuthContext)
+    const navigate=useNavigate();
     const {title, marks, thumbnailURL, difficulty, dueDate, description, email}=assignment;
     const submitEmail = user.email;
     const userSubmit = user.displayName;
     const pending = true;
+    const examineeMarks="";
     const handleSubmitAssignment = (e)=>{
 
         e.preventDefault();
@@ -19,7 +21,7 @@ const TakeAssignment = () => {
 
         const submitUser = {
             pdfLink,notes,
-            title, marks, thumbnailURL, difficulty, dueDate, description, email,submitEmail,userSubmit,pending,
+            title, marks,examineeMarks, thumbnailURL, difficulty, dueDate, description, email,submitEmail,userSubmit,pending,
         }
 
         console.log(submitUser);
@@ -28,6 +30,7 @@ const TakeAssignment = () => {
                 // Handle the successful response here
                 console.log('POST request successful', response.data);
                 from.reset();
+                navigate("/assignments");
             })
             .catch((error) => {
                 // Handle any errors that occurred during the POST request

@@ -2,18 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowCircleRight, FaArrowRight } from "react-icons/fa";
 import useServices from '../../../Hooks/useServices';
+import { CiMenuKebab } from 'react-icons/ci';
 
 const Services = () => {
-    // const [services, setServices] = useState([]);
-
-    // useEffect(() => {
-    //     fetch("http://localhost:5000/services")
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setServices(data);
-    //         })
-    // })
-    const features= useServices();
+ 
+    const features = useServices();
+    const homeFeature= features.slice(0,9);
+    
     return (
         <div className='flex flex-col items-center justify-center mt-5'>
             <div className='text-center space-y-1 mt-5 lg:mt-15'>
@@ -23,24 +18,32 @@ const Services = () => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-5'>
                 {
-                    features.map((feature,index) => <div key={index} className=" rounded-xl p-0 m-0 justify-between flex flex-col bg-base-100  border-2">
-                        <figure className="">
-                            <img src={feature.thumbnailURL} alt="Assignment" className="rounded-xl w-full h-[200px]" />
-                        </figure>
-                        <div className="card-body text-left ">
-                            <h2 className="card-title text-3xl">{feature.title}</h2>
-                            <div>{feature.description.slice(0,35)} <button>...see more</button></div>
-                            <p>{feature.dueDate}</p>
-                            <div className="card-actions flex justify-between items-center">
-                                <Link  className="text-orange-400">Marks:  {feature.marks}</Link>
-                                <Link to={`/checkout/${feature._id}`}  className="text-orange-400 text-3xl btn btn-circle"><FaArrowCircleRight></FaArrowCircleRight></Link>
+                    homeFeature.map((feature, index) => <div key={index} className=" rounded-xl p-0 m-0 justify-between flex flex-col bg-base-100  border-2">
+                        <div className=" rounded-xl p-0 m-0 justify-between flex flex-col   border-2">
+                            <figure className="relative">
+                                <img src={feature.thumbnailURL} alt="feature" className="rounded-xl w-full h-[200px]" />
+                            </figure>
+                            <div className=" py-5 px-3 text-left space-y-2  ">
+                                <div>
+                                    <div className='flex items-center gap-3'>
+                                        <img src={feature?.photoURL} alt="" className='w-10 rounded-full' />
+                                        <h1>{feature?.displayName}</h1>
+                                    </div>
+                                </div>
+                                <h2 className="card-title text-2xl">{feature.title}</h2>
+                                <div>{feature.description.slice(0, 35)} <Link to={`/view/${feature._id}`}>...see more</Link></div>
+                                <p>{feature.dueDate}</p>
+                                <div className="card-actions flex justify-between items-center">
+                                    <Link className="text-orange-400">Marks:  {feature.marks}</Link>
+                                    <Link to={`/view/${feature._id}`} className="  btn btn-sm btn-warning">View</Link>
+                                </div>
                             </div>
                         </div>
                     </div>)
                 }
             </div>
             <div>
-                <button className='btn btn-outline btn-warning mt-7'>More Services</button>
+                <Link to="/assignments" className='btn btn-outline btn-warning mt-7'>More Services</Link >
             </div>
         </div>
     );
