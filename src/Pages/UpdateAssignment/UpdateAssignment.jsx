@@ -1,14 +1,26 @@
-import React from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 const UpdateAssignment = () => {
+    const [assignment, setAssignment] = useState({});
     const { user } = useAuth();
+    const { id } = useParams();
     const navigate = useNavigate();
-    const assignment = useLoaderData();
-    console.log(assignment);
+    // const assignment = useLoaderData();
+    // console.log(assignment);
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/assignment/${id}`, { withCredentials: true })
+            .then(res => {
+                const data = res.data;
+                console.log(data);
+                setAssignment(data);
+            });
+    }, [])
     const handleUpdate = (e) => {
         e.preventDefault();
 
@@ -24,18 +36,13 @@ const UpdateAssignment = () => {
         const displayName = assignment.displayName;
 
         const updatedAssignment = {
-            title, marks, thumbnailURL, difficulty, dueDate, description, email,photoURL,displayName
+            title, marks, thumbnailURL, difficulty, dueDate, description, email, photoURL, displayName
         }
         console.log(updatedAssignment);
 
-        fetch(`http://localhost:5000/assignment/${assignment._id}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(updatedAssignment)
-        }).then(res => res.json())
-            .then(data => {
+        axios.put(`http://localhost:5000/assignment/${assignment._id}`, updatedAssignment, { withCredentials: true })
+            .then(res => {
+                const data = res.data;
                 console.log(data);
                 toast.success('Congratulation information Updated successfully!', {
                     position: "top-right",
@@ -48,7 +55,7 @@ const UpdateAssignment = () => {
                     theme: "light",
                 });
                 navigate("/assignments");
-                
+
             })
     }
     return (
@@ -74,12 +81,12 @@ const UpdateAssignment = () => {
                         <input type="text" id="thumbnailUrl" placeholder='url:' defaultValue={assignment.thumbnailURL} name="thumbnailURL" required className="w-full px-4 py-2 border rounded" />
                     </div>
                     <div className="mb-4">
-                        <label className="block text-left">Difficulty Level</label>
-                        <select defaultValue={assignment.difficulty} name="difficulty" required className="w-full px-4 py-2 border rounded">
-                            <option value="">Select Level</option>
-                            <option value="easy">Easy</option>
-                            <option value="medium">Medium</option>
-                            <option value="hard">Hard</option>
+                        <label className="block text-left">Difficulty Level : {assignment.difficulty}</label>
+                        <select type="text" name="difficulty" defaultValue={assignment.difficulty} required className="w-full px-4 py-2 border rounded">
+                            <option value="" >Select Level</option>
+                            <option value="easy" >Easy</option>
+                            <option value="medium" >Medium</option>
+                            <option value="hard" >Hard</option>
                         </select>
                     </div>
                     <div className="mb-4 w-full">

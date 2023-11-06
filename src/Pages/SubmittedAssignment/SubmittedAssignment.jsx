@@ -2,15 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import SubmitAssign from './SubmitAssign';
 import { AuthContext } from '../../Providers/AuthProviders';
+import axios from 'axios';
 
 const SubmittedAssignment = () => {
     const {user}=useContext(AuthContext);
     const [submitAssignments, setSubmitAssignments] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/submitAssignment`)
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data);
+        axios.get(`http://localhost:5000/submitAssignment`,{withCredentials:true})
+            .then(res => {
+                const data = res.data;
+                console.log(data);
                 const PendingAssignment = data.filter((assignment) => assignment.pending === true);
                 const PendingAssignmentForUser = PendingAssignment.filter((assignment)=>assignment.email===user.email);
                 setSubmitAssignments(PendingAssignmentForUser);

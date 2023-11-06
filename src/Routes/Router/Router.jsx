@@ -42,11 +42,6 @@ const router = createBrowserRouter([
             path:"/singUp",
             element:<SingUp></SingUp>
         },
-        // {
-        //     path:"/checkout/:id",
-        //     element:<CheckOut></CheckOut>,
-        //     loader:({params})=> fetch(`https://car-doctor-server-md.vercel.app/services/${params.id}`)
-        // },
         {
             path:"/assignments",
             element:<Assignments></Assignments>,
@@ -54,7 +49,7 @@ const router = createBrowserRouter([
         {
             path:"/myAss",
             element:<PrivateRoute><MyAssignments></MyAssignments></PrivateRoute>,
-            loader: ()=>fetch('http://localhost:5000/assignment')
+            // loader: ()=>fetch('http://localhost:5000/assignment')
         },
         {
             path:"/create",
@@ -68,27 +63,25 @@ const router = createBrowserRouter([
         {
             path:"/update/:id",
             element:<PrivateRoute><UpdateAssignment></UpdateAssignment></PrivateRoute>,
-            loader:({params})=>fetch(`http://localhost:5000/assignment/${params.id}`)
+            // loader:({params})=>fetch(`http://localhost:5000/assignment/${params.id}`)
         },
         {
             path:"/take/:id",
             element:<PrivateRoute><TakeAssignment></TakeAssignment></PrivateRoute>,
-            loader:({params})=>fetch(`http://localhost:5000/assignment/${params.id}`)
+            // loader:({params})=>fetch(`http://localhost:5000/assignment/${params.id}`)
         },
         {
             path:"/submit",
             element:<PrivateRoute><SubmittedAssignment></SubmittedAssignment></PrivateRoute>,
-            // loader:()=>fetch(`http://localhost:5000/submitAssignment`)
         },
         {
             path:"/mark/:id",
             element:<PrivateRoute><MarkAssignment></MarkAssignment></PrivateRoute>,
-            loader:({params})=>fetch(`http://localhost:5000/submitAssignment/${params.id}`)
+            
         },
         {
             path:"/mySubmit",
             element:<PrivateRoute><MySubmit></MySubmit></PrivateRoute>,
-            // loader:()=>fetch(`http://localhost:5000/submitAssignment`)
         },
       ]
     },

@@ -1,30 +1,43 @@
-import React, { useContext } from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProviders';
 import axios from 'axios';
 
 const TakeAssignment = () => {
-    const assignment = useLoaderData();
-    const {user}= useContext(AuthContext)
-    const navigate=useNavigate();
-    const {title, marks, thumbnailURL, difficulty, dueDate, description, email}=assignment;
+    // const assignment = useLoaderData();
+
+    const [assignment, setAssignment] = useState({});
+
+    const { user } = useContext(AuthContext)
+    const navigate = useNavigate();
+    const { id } = useParams();
+    const { title, marks, thumbnailURL, difficulty, dueDate, description, email } = assignment;
     const submitEmail = user.email;
     const userSubmit = user.displayName;
     const pending = true;
-    const examineeMarks="";
-    const handleSubmitAssignment = (e)=>{
+    const examineeMarks = "";
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/assignment/${id}`, { withCredentials: true })
+            .then(res=>{
+                const data = res.data;
+                console.log(data);
+                setAssignment(data);
+            })
+    }, [])
+    const handleSubmitAssignment = (e) => {
 
         e.preventDefault();
         const from = e.target;
-        const pdfLink = from.pdfLink.value; 
-        const notes = from.notes.value; 
+        const pdfLink = from.pdfLink.value;
+        const notes = from.notes.value;
 
         const submitUser = {
-            pdfLink,notes,title, marks,examineeMarks, thumbnailURL, difficulty, dueDate, description, email,submitEmail,userSubmit,pending,
+            pdfLink, notes, title, marks, examineeMarks, thumbnailURL, difficulty, dueDate, description, email, submitEmail, userSubmit, pending,
         }
 
         console.log(submitUser);
-        axios.post("http://localhost:5000/submitAssignment", submitUser)
+        axios.post("http://localhost:5000/submitAssignment", submitUser, { withCredentials: true })
             .then((response) => {
                 // Handle the successful response here
                 console.log('POST request successful', response.data);
@@ -58,6 +71,7 @@ const TakeAssignment = () => {
                                 <label htmlFor="pdfLink" className="block text-sm font-medium ">
                                     PDF Link:
                                 </label>
+                                <p className='text-sm'>To create a link you can use <a href='https://updf.com/' target="_blank" className='text-blue-500'>UPDF</a></p>
                                 <input
                                     type="text"
                                     id="pdfLink"

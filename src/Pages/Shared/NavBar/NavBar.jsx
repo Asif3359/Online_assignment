@@ -4,6 +4,7 @@ import logo1 from "../../../assets/images/banner/7.jpg"
 import { AuthContext } from '../../../Providers/AuthProviders';
 import useAuth from '../../../Hooks/useAuth';
 import { IoPersonCircle } from "react-icons/io5";
+import swal from 'sweetalert';
 
 const NavBar = () => {
 
@@ -11,13 +12,28 @@ const NavBar = () => {
     // const { user, logOut } = useContext(AuthContext);
 
     const handleLogOut = () => {
-        logOut()
-            .then(result => {
-                console.log(result);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+
+        swal({
+            title: "Are you sure ? You  want to log out",
+            text: "Once logged out, you don access many data From This site!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    logOut()
+                        .then(result => {
+                            console.log(result);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+
+                } else {
+                    swal("You Are Still logged in .");
+                }
+            });
     }
 
 
@@ -57,7 +73,7 @@ const NavBar = () => {
             <div className="navbar-end">
                 <><NavLink to="/profile">
                     {
-                        user?.email?<><img src={user.photoURL} className='w-12 rounded-full btn btn-circle' alt="" /></>:<span className='text-4xl '><IoPersonCircle></IoPersonCircle></span>
+                        user?.email ? <><img src={user.photoURL} className='w-12 rounded-full btn btn-circle' alt="" /></> : <span className='text-4xl '><IoPersonCircle></IoPersonCircle></span>
                     }
                 </NavLink></>
             </div>

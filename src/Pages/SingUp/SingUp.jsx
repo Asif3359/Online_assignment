@@ -52,8 +52,9 @@ const SingUp = () => {
                     photoURL: Photo
                 }
                 console.log(ourUsr);
-                fetch('https://brand-server-asif-ahammeds-projects.vercel.app/users', {
+                fetch('http://localhost:5000/jwt', {
                     method: 'POST',
+                    credentials:"include",
                     headers: {
                         'content-type': 'application/json'
                     },
@@ -62,8 +63,9 @@ const SingUp = () => {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        navigate(location?.state ? location.state : "/");
                         console.log(data.acknowledged);
+                        navigate(location?.state ? location.state : "/");
+                        
                     })
                 setRegisterSuccessMessage("User Successfully register ");
                 navigate(location?.state ? location.state : "/")
@@ -107,8 +109,9 @@ const SingUp = () => {
                     lastLogAt: user.metadata?.lastSignInTime,
                     displayName: user.displayName,
                 }
-                fetch('https://brand-server-asif-ahammeds-projects.vercel.app/users', {
-                    method: 'PATCH',
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    credentials:"include",
                     headers: {
                         'content-type': 'application/json'
                     },
@@ -117,8 +120,9 @@ const SingUp = () => {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        navigate(location?.state ? location.state : "/");
                         console.log(data.acknowledged);
+                        navigate(location?.state ? location.state : "/");
+                        
                     })
                 setRegisterSuccessMessage("User Successfully login ");
                 navigate(location?.state ? location.state : "/");

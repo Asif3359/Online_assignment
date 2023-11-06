@@ -4,6 +4,7 @@ import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import Assignment from './Assignment';
 import useAuth from '../../Hooks/useAuth';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const Assignments = () => {
     const { user } = useAuth();
@@ -13,9 +14,9 @@ const Assignments = () => {
     const [selectedDifficulty, setSelectedDifficulty] = useState('All'); // Initialize with 'All' as the default difficulty
 
     useEffect(() => {
-        fetch('http://localhost:5000/assignment')
-            .then(res => res.json())
-            .then(data => {
+        axios.get('http://localhost:5000/assignment',{withCredentials:true})
+            .then(res => {
+                const data = res.data;
                 const filteredAssignments = data.filter(assignment => {
                     if (selectedDifficulty === 'All') {
                         return true; // Show all assignments

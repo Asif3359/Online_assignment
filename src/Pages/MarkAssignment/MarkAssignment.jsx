@@ -1,15 +1,25 @@
-import React from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const MarkAssignment = () => {
+const MarkAssignment = () => { 
+    // loader:({params})=>fetch(`http://localhost:5000/submitAssignment/${params.id}`)
 
-    const submitAssignment = useLoaderData();
+    const [submitAssignment ,setSubmitAssignment]=useState({});
+    
     const navigate = useNavigate();
+    const { id } = useParams();
 
 
-
-
+    useEffect(()=>{
+        axios.get(`http://localhost:5000/submitAssignment/${id}`,{withCredentials:true})
+        .then(res=>{
+            const data = res.data;
+            console.log(data);
+            setSubmitAssignment(data);
+        })
+    },[])
 
     const handleGiveMark = (e) => {
         e.preventDefault();
@@ -37,6 +47,7 @@ const MarkAssignment = () => {
 
         fetch(`http://localhost:5000/submitAssignment/${submitAssignment._id}`, {
             method: 'PUT',
+            credentials: "include",
             headers: {
                 'content-type': 'application/json'
             },

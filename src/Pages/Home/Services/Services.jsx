@@ -3,12 +3,20 @@ import { Link } from 'react-router-dom';
 import { FaArrowCircleRight, FaArrowRight } from "react-icons/fa";
 import useServices from '../../../Hooks/useServices';
 import { CiMenuKebab } from 'react-icons/ci';
+import axios from 'axios';
 
 const Services = () => {
- 
-    const features = useServices();
-    const homeFeature= features.slice(0,9);
-    
+
+    const [services, setServices] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:5000/assignment", { withCredentials: true })
+            .then(res => {
+                setServices(res.data);
+            })
+    })
+    const homeFeature = services.slice(0, 9);
+
     return (
         <div className='flex flex-col items-center justify-center mt-5'>
             <div className='text-center space-y-1 mt-5 lg:mt-15'>

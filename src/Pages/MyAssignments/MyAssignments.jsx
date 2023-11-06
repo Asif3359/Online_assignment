@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import MyAssignment from './MyAssignment';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const MyAssignments = () => {
-    const myAssignments = useLoaderData();
+
+    const [myAssignments, setMyAssignment] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/assignment', { withCredentials: true })
+            .then(res => {
+                console.log(res.data);
+                setMyAssignment(res.data);
+            });
+
+    }, []);
+    // console.log(myAssignments);
+
     return (
         <div className=' mx-auto p-4'>
             <div className='mb-5 relative'>
@@ -12,10 +26,10 @@ const MyAssignments = () => {
                     <p className="text-white text-2xl">My Assignment</p>
                 </div>
             </div>
-            <div>{myAssignments.length}</div>
+            <div>{myAssignments?.length}</div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
-                    myAssignments.map((myAssignment, index)=><MyAssignment key={index} myAssignment={myAssignment}></MyAssignment>)
+                    myAssignments.map((myAssignment, index) => <MyAssignment key={index} myAssignment={myAssignment}></MyAssignment>)
                 }
             </div>
         </div>

@@ -25,8 +25,9 @@ const Login = () => {
                     lastLogAt: user.metadata?.lastSignInTime,
                     displayName: user.displayName,
                 }
-                fetch('https://brand-server-asif-ahammeds-projects.vercel.app/users', {
-                    method: 'PATCH',
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    credentials:"include",
                     headers: {
                         'content-type': 'application/json'
                     },
@@ -86,8 +87,9 @@ const Login = () => {
                     displayName: user.displayName,
                 }
                 // console.log(user);
-                fetch('https://brand-server-asif-ahammeds-projects.vercel.app/users', {
-                    method: 'PATCH',
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    credentials:"include",
                     headers: {
                         'content-type': 'application/json'
                     },
