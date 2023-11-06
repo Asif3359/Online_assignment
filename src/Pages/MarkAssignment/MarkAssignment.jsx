@@ -1,17 +1,63 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const MarkAssignment = () => {
 
     const submitAssignment = useLoaderData();
-
-    console.log(submitAssignment.pdfLink);
-
+    const navigate = useNavigate();
 
 
-    const handleGiveMark =(e)=>{
+
+
+
+    const handleGiveMark = (e) => {
         e.preventDefault();
-        
+
+        const from = e.target;
+        const pending = submitAssignment.pending = false;
+        const examineeMarks = from.examineeMarks.value;
+
+        const updateSubmitAssignment = {
+            title: submitAssignment.title,
+            marks: submitAssignment.marks,
+            thumbnailURL: submitAssignment.thumbnailURL,
+            difficulty: submitAssignment.difficulty,
+            dueDate: submitAssignment.dueDate,
+            description: submitAssignment.description,
+            email: submitAssignment.email,
+            pdfLink: submitAssignment.pdfLink,
+            notes: submitAssignment.notes,
+            examineeMarks: examineeMarks,
+            submitEmail: submitAssignment.submitEmail,
+            userSubmit: submitAssignment.userSubmit,
+            pending: pending,
+        }
+        console.log(updateSubmitAssignment);
+
+        fetch(`http://localhost:5000/submitAssignment/${submitAssignment._id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(updateSubmitAssignment)
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+                toast.success('Congratulation information Updated successfully!', {
+                    position: "top-right",
+                    autoClose: 1500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                navigate("/");
+
+            })
+
     }
 
 
@@ -40,7 +86,7 @@ const MarkAssignment = () => {
                     <form onSubmit={handleGiveMark} >
                         <div className='space-y-3'>
                             <label htmlFor='mark'> Give marks:</label>
-                            <input type="text" name='mark' id='mark' placeholder='give Mark' className='border-2 p-2  w-full rounded-xl' />
+                            <input type="text" name='examineeMarks' id='examineeMarks' placeholder='give examineeMarks' className='border-2 p-2  w-full rounded-xl' />
                             <input type="submit" value="Submit" className='btn btn-sm btn-warning w-full' />
                         </div>
                     </form>

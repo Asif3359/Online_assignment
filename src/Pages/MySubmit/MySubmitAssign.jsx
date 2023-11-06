@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const SubmitAssign = ({ submitAssignment }) => {
+const MySubmitAssign = ({submitAssignment}) => {
 
     // console.log(submitAssignment);
 
@@ -14,12 +14,10 @@ const SubmitAssign = ({ submitAssignment }) => {
                 <h1>{submitAssignment.userSubmit}</h1>
             </td>
             <td>{submitAssignment.marks}</td>
-            <td>{submitAssignment?.pending?<>Pending</>:<>Done</>}</td>
-            <th>
-                <Link to={`/mark/${submitAssignment._id}`} className="btn btn-ghost btn-xs btn-warning btn-outline">give mark</Link>
-            </th>
+            <td>{submitAssignment?.pending ? <>Pending</> : <>Done</>}</td>
+            <th>{submitAssignment.examineeMarks}</th>
         </tr>
     );
 };
 
-export default SubmitAssign;
+export default MySubmitAssign;

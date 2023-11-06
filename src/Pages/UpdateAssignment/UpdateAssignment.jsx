@@ -8,7 +8,7 @@ const UpdateAssignment = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const assignment = useLoaderData();
-    // console.log(assignment._id)
+    console.log(assignment);
     const handleUpdate = (e) => {
         e.preventDefault();
 
@@ -19,10 +19,12 @@ const UpdateAssignment = () => {
         const difficulty = from.difficulty.value;
         const dueDate = from.dueDate.value;
         const description = from.description.value;
-        const email = user.email;
+        const email = assignment.email;
+        const photoURL = assignment.photoURL;
+        const displayName = assignment.displayName;
 
         const updatedAssignment = {
-            title, marks, thumbnailURL, difficulty, dueDate, description, email
+            title, marks, thumbnailURL, difficulty, dueDate, description, email,photoURL,displayName
         }
         console.log(updatedAssignment);
 

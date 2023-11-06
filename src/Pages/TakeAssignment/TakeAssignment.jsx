@@ -20,8 +20,7 @@ const TakeAssignment = () => {
         const notes = from.notes.value; 
 
         const submitUser = {
-            pdfLink,notes,
-            title, marks,examineeMarks, thumbnailURL, difficulty, dueDate, description, email,submitEmail,userSubmit,pending,
+            pdfLink,notes,title, marks,examineeMarks, thumbnailURL, difficulty, dueDate, description, email,submitEmail,userSubmit,pending,
         }
 
         console.log(submitUser);
