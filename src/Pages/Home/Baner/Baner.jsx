@@ -3,11 +3,11 @@ import banner1 from "../../../assets/images/banner/1.jpg"
 const Baner = () => {
     return (
         <div>
-            <div className='mb-5 relative'>
+            <div className='mb-5 relative '>
                 <div className=''>
                     <img src={banner1} alt="" className='w-full h-[400px] lg:h-[90vh]  rounded-lg' />
                 </div>
-                <div className="absolute inset-0 bg-opacity-90 flex items-center justify-start p-2">
+                <div className="absolute inset-0 bg-opacity-90 flex items-center justify-start p-2 bg-gradient-to-r from-gray-200">
                     <div className="flex justify-between items-center flex-col lg:flex-row px-10 ">
                         <div className="flex-1 space-y-2 text-black">
                             <h1 className="font-bold ">Box Office News!</h1>

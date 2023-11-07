@@ -39,11 +39,16 @@ const NavBar = () => {
 
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
-        <li><NavLink to="/assignments">Assignments</NavLink></li>
+        <li><NavLink to="/assignments">All Assignments</NavLink></li>
         {
             user?.email ? <>
-                <li><NavLink to="/submit">Submitted Assignment</NavLink></li>
-                <li><NavLink to="/mySubmit">My Submitted Assignment</NavLink></li>
+                <li className="dropdown dropdown-end">
+                    <label tabIndex={0} className="">Submitted Assignment</label>
+                    <ul tabIndex={0} className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-64 mt-4 space-y-1">
+                        <li><NavLink to="/submit">Other Submitted Assignment</NavLink></li>
+                        <li><NavLink to="/mySubmit">My Submitted Assignment</NavLink></li>
+                    </ul>
+                </li>
                 <li><NavLink to="/myAss">My Assignments</NavLink></li>
                 <li><NavLink to="/create"> create assignments</NavLink></li>
                 <li><button onClick={handleLogOut} >logOut</button></li>

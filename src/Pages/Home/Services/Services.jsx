@@ -20,8 +20,8 @@ const Services = () => {
     return (
         <div className='flex flex-col items-center justify-center mt-5'>
             <div className='text-center space-y-1 mt-5 lg:mt-15'>
-                <h3 className='text-3xl text-orange-400'>Feature section</h3>
-                <h1 className='text-5xl'>Our Feature Area</h1>
+                {/* <h3 className='text-3xl text-orange-400'>Feature section</h3> */}
+                <h1 className='text-5xl'>Our <span className='text-yellow-500'>Assignment</span> Area</h1>
                 <p className='w-full lg:w-3/4 mx-auto pt-4'>the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-5'>
