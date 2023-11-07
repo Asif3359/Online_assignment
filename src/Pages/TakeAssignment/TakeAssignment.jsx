@@ -16,6 +16,7 @@ const TakeAssignment = () => {
     const userSubmit = user.displayName;
     const pending = true;
     const examineeMarks = "";
+    const feedBack = "";
 
     useEffect(() => {
         axios.get(`http://localhost:5000/assignment/${id}`, { withCredentials: true })
@@ -33,7 +34,7 @@ const TakeAssignment = () => {
         const notes = from.notes.value;
 
         const submitUser = {
-            pdfLink, notes, title, marks, examineeMarks, thumbnailURL, difficulty, dueDate, description, email, submitEmail, userSubmit, pending,
+            pdfLink, notes, title, marks, examineeMarks,feedBack, thumbnailURL, difficulty, dueDate, description, email, submitEmail, userSubmit, pending,
         }
 
         console.log(submitUser);

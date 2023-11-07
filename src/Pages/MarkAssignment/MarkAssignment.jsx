@@ -3,23 +3,23 @@ import React, { useEffect, useState } from 'react';
 import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const MarkAssignment = () => { 
+const MarkAssignment = () => {
     // loader:({params})=>fetch(`http://localhost:5000/submitAssignment/${params.id}`)
 
-    const [submitAssignment ,setSubmitAssignment]=useState({});
-    
+    const [submitAssignment, setSubmitAssignment] = useState({});
+
     const navigate = useNavigate();
     const { id } = useParams();
 
 
-    useEffect(()=>{
-        axios.get(`http://localhost:5000/submitAssignment/${id}`,{withCredentials:true})
-        .then(res=>{
-            const data = res.data;
-            console.log(data);
-            setSubmitAssignment(data);
-        })
-    },[])
+    useEffect(() => {
+        axios.get(`http://localhost:5000/submitAssignment/${id}`, { withCredentials: true })
+            .then(res => {
+                const data = res.data;
+                console.log(data);
+                setSubmitAssignment(data);
+            })
+    }, [])
 
     const handleGiveMark = (e) => {
         e.preventDefault();
@@ -27,6 +27,7 @@ const MarkAssignment = () => {
         const from = e.target;
         const pending = submitAssignment.pending = false;
         const examineeMarks = from.examineeMarks.value;
+        const feedBack = from.feedBack.value;
 
         const updateSubmitAssignment = {
             title: submitAssignment.title,
@@ -42,6 +43,7 @@ const MarkAssignment = () => {
             submitEmail: submitAssignment.submitEmail,
             userSubmit: submitAssignment.userSubmit,
             pending: pending,
+            feedBack:feedBack
         }
         console.log(updateSubmitAssignment);
 
@@ -79,7 +81,7 @@ const MarkAssignment = () => {
             </div>
             {/* <a href={submitAssignment.pdfLink}>View It </a> */}
             <div className='flex flex-col lg:flex-row justify-between items-start gap-5'>
-                <div className=" rounded-lg shadow-md overflow-hidden flex-1 w-full lg:w-4/5 ">
+                <div className=" rounded-lg shadow-md overflow-hidden flex-1 w-full lg:w-3/4 ">
                     <iframe
                         title="PDF Viewer"
                         className="  overscroll-y-auto h-[70vh] w-full"
@@ -89,15 +91,21 @@ const MarkAssignment = () => {
                     </iframe>
 
                 </div>
-                <div className='w-full lg:w-1/5'>
+                <div className='w-full lg:w-1/4'>
                     <div>
                         <h1>{submitAssignment.userSubmit}</h1>
                         <h1>Marks:{submitAssignment.marks}</h1>
                     </div>
-                    <form onSubmit={handleGiveMark} >
-                        <div className='space-y-3'>
+                    <form onSubmit={handleGiveMark} className='space-y-3' >
+                        <div className='space-y-1'>
                             <label htmlFor='mark'> Give marks:</label>
                             <input type="text" name='examineeMarks' id='examineeMarks' placeholder='give examineeMarks' className='border-2 p-2  w-full rounded-xl' />
+                        </div>
+                        <div className='space-y-1'>
+                            <label htmlFor='mark'> Feed Back</label>
+                            <textarea type="text" name='feedBack' id='feedBack' placeholder='Feed back' className='border-2 p-2  w-full h-28 rounded-xl ' />
+                        </div>
+                        <div>
                             <input type="submit" value="Submit" className='btn btn-sm btn-warning w-full' />
                         </div>
                     </form>

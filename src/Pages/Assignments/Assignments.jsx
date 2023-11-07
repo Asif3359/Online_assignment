@@ -29,9 +29,6 @@ const Assignments = () => {
             })
     }, [assignments, selectedDifficulty])
 
-
-
-
     const handleDelete = (_id, email) => {
 
         if (user?.email === email) {

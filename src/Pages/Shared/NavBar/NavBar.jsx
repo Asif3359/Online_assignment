@@ -52,6 +52,7 @@ const NavBar = () => {
                 <li className="dropdown dropdown-hover">
                     <label tabIndex={0} className="menu-dropdown-toggle" onClick={()=>handleDropdown(drpDown)}>Submitted Assignment</label>
                     <ul tabIndex={0} className={`${drpDown?"":"hidden"}  z-[10] p-2  ml-0 lg:absolute left-0 top-0 lg:left-0 lg:top-5  shadow bg-base-100 rounded-box  lg:w-64 lg:mt-4 space-y-1`}>
+                        <li><NavLink to="/allSubmit">All Submitted Assignment</NavLink></li>
                         <li><NavLink to="/submit">Other Submitted Assignment</NavLink></li>
                         <li><NavLink to="/mySubmit">My Submitted Assignment</NavLink></li>
                     </ul>

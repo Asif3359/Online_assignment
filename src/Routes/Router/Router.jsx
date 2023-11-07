@@ -15,6 +15,8 @@ import TakeAssignment from '../../Pages/TakeAssignment/TakeAssignment';
 import SubmittedAssignment from '../../Pages/SubmittedAssignment/SubmittedAssignment';
 import MarkAssignment from '../../Pages/MarkAssignment/MarkAssignment';
 import MySubmit from '../../Pages/MySubmit/MySubmit';
+import AllSubmit from '../../Pages/AllSubmit/AllSubmit';
+import PreView from '../../Pages/PreView/PreView';
 
 const router = createBrowserRouter([
     {
@@ -75,8 +77,17 @@ const router = createBrowserRouter([
             element:<PrivateRoute><SubmittedAssignment></SubmittedAssignment></PrivateRoute>,
         },
         {
+            path:"/allSubmit",
+            element:<PrivateRoute><AllSubmit></AllSubmit></PrivateRoute>,
+        },
+        {
             path:"/mark/:id",
             element:<PrivateRoute><MarkAssignment></MarkAssignment></PrivateRoute>,
+            
+        },
+        {
+            path:"/preView/:id",
+            element:<PrivateRoute><PreView></PreView></PrivateRoute>,
             
         },
         {
