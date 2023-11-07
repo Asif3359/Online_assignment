@@ -7,9 +7,12 @@ const googleProvider = new GoogleAuthProvider();
 
 export const AuthContext = createContext(null)
 
+
 const AuthProviders = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [drpDown, setDropDown] = useState(false)
+    const [drpDownGlobal, setDrpDownGlobal] = useState(false)
 
     const auth = getAuth(app);
 
@@ -48,7 +51,11 @@ const AuthProviders = ({ children }) => {
     const logOut = () => {
         setLoading(true);
         return signOut(auth)
+    };
+    const handleDropdown = (dropdown) => {
+        return setDropDown(!dropdown)
     }
+  
 
     const info = {
         socialLogIn,
@@ -57,7 +64,11 @@ const AuthProviders = ({ children }) => {
         logInUser,
         logOut,
         loading,
-        profile
+        profile,
+        drpDown,
+        handleDropdown,
+        drpDownGlobal,
+        setDrpDownGlobal,
     }
     return (
         <AuthContext.Provider value={info}>
