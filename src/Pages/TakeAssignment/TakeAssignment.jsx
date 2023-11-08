@@ -20,7 +20,7 @@ const TakeAssignment = () => {
 
     useEffect(() => {
         axios.get(`https://server-site-assignment-eight.vercel.app/assignment/${id}`, { withCredentials: true })
-            .then(res=>{
+            .then(res => {
                 const data = res.data;
                 console.log(data);
                 setAssignment(data);
@@ -34,7 +34,7 @@ const TakeAssignment = () => {
         const notes = from.notes.value;
 
         const submitUser = {
-            pdfLink, notes, title, marks, examineeMarks,feedBack, thumbnailURL, difficulty, dueDate, description, email, submitEmail, userSubmit, pending,
+            pdfLink, notes, title, marks, examineeMarks, feedBack, thumbnailURL, difficulty, dueDate, description, email, submitEmail, userSubmit, pending,
         }
 
         console.log(submitUser);
@@ -42,6 +42,16 @@ const TakeAssignment = () => {
             .then((response) => {
                 // Handle the successful response here
                 console.log('POST request successful', response.data);
+                toast.success('🦄 Wow so easy!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
                 from.reset();
                 navigate("/assignments");
             })

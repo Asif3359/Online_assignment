@@ -57,7 +57,7 @@ const MarkAssignment = () => {
         }).then(res => res.json())
             .then(data => {
                 console.log(data);
-                toast.success('Congratulation information Updated successfully!', {
+                toast.success('Congratulation Marked  successfully!', {
                     position: "top-right",
                     autoClose: 1500,
                     hideProgressBar: false,

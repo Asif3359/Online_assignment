@@ -12,10 +12,11 @@ const Services = () => {
     useEffect(() => {
         axios.get("https://server-site-assignment-eight.vercel.app/assignment", { withCredentials: true })
             .then(res => {
-                setServices(res.data);
+                const homeFeature = res.data.slice(0, 9);
+
+                setServices(homeFeature);
             })
-    })
-    const homeFeature = services.slice(0, 9);
+    }, []);
 
     return (
         <div className='flex flex-col items-center justify-center mt-5'>
@@ -26,7 +27,7 @@ const Services = () => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-5'>
                 {
-                    homeFeature.map((feature, index) => <div key={index} className=" rounded-xl p-0 m-0 justify-between flex flex-col bg-base-100  border-2">
+                    services.map((feature, index) => <div key={index} className=" rounded-xl p-0 m-0 justify-between flex flex-col bg-base-100  border-2">
                         <div className=" rounded-xl p-0 m-0 justify-between flex flex-col   border-2">
                             <figure className="relative">
                                 <img src={feature.thumbnailURL} alt="feature" className="rounded-xl w-full h-[200px]" />

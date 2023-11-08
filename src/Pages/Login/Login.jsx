@@ -29,7 +29,7 @@ const Login = () => {
                     method: 'POST',
                     credentials:"include",
                     headers: {
-                        'content-type': 'application/json'
+                        'content-type':'application/json'
                     },
                     body: JSON.stringify(ourUsr)
                 })
@@ -70,6 +70,7 @@ const Login = () => {
     }
     const handleLogIn = (e) => {
         e.preventDefault();
+        const from= e.target;
         const Email = e.target.email.value;
         const Password = e.target.password.value;
         console.log(Email, Password);
@@ -99,6 +100,7 @@ const Login = () => {
                     .then(data => {
                         console.log(data);
                         navigate("/");
+                        // from.reset();
                         console.log(data.acknowledged);
                     })
                 setLoginSuccessMessage("User Logged in Successfully");
