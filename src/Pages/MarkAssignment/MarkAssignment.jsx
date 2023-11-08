@@ -13,7 +13,7 @@ const MarkAssignment = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/submitAssignment/${id}`, { withCredentials: true })
+        axios.get(`https://server-site-assignment-eight.vercel.app/submitAssignment/${id}`, { withCredentials: true })
             .then(res => {
                 const data = res.data;
                 console.log(data);
@@ -47,7 +47,7 @@ const MarkAssignment = () => {
         }
         console.log(updateSubmitAssignment);
 
-        fetch(`http://localhost:5000/submitAssignment/${submitAssignment._id}`, {
+        fetch(`https://server-site-assignment-eight.vercel.app/submitAssignment/${submitAssignment._id}`, {
             method: 'PUT',
             credentials: "include",
             headers: {

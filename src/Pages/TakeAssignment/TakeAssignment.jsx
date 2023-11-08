@@ -19,7 +19,7 @@ const TakeAssignment = () => {
     const feedBack = "";
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/assignment/${id}`, { withCredentials: true })
+        axios.get(`https://server-site-assignment-eight.vercel.app/assignment/${id}`, { withCredentials: true })
             .then(res=>{
                 const data = res.data;
                 console.log(data);
@@ -38,7 +38,7 @@ const TakeAssignment = () => {
         }
 
         console.log(submitUser);
-        axios.post("http://localhost:5000/submitAssignment", submitUser, { withCredentials: true })
+        axios.post("https://server-site-assignment-eight.vercel.app/submitAssignment", submitUser, { withCredentials: true })
             .then((response) => {
                 // Handle the successful response here
                 console.log('POST request successful', response.data);

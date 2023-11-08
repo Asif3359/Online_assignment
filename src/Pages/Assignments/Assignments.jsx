@@ -14,7 +14,7 @@ const Assignments = () => {
     const [selectedDifficulty, setSelectedDifficulty] = useState('All'); // Initialize with 'All' as the default difficulty
 
     useEffect(() => {
-        axios.get('http://localhost:5000/assignment',{withCredentials:true})
+        axios.get('https://server-site-assignment-eight.vercel.app/assignment',{withCredentials:true})
             .then(res => {
                 const data = res.data;
                 const filteredAssignments = data.filter(assignment => {
@@ -42,7 +42,7 @@ const Assignments = () => {
                 .then((willDelete) => {
                     if (willDelete) {
 
-                        fetch(`http://localhost:5000/assignment/${_id}`, {
+                        fetch(`https://server-site-assignment-eight.vercel.app/assignment/${_id}`, {
                             method: "DELETE"
                         })
                             .then(res => res.json())

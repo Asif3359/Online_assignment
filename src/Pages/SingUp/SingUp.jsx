@@ -52,7 +52,7 @@ const SingUp = () => {
                     photoURL: Photo
                 }
                 console.log(ourUsr);
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://server-site-assignment-eight.vercel.app/jwt', {
                     method: 'POST',
                     credentials:"include",
                     headers: {
@@ -109,7 +109,7 @@ const SingUp = () => {
                     lastLogAt: user.metadata?.lastSignInTime,
                     displayName: user.displayName,
                 }
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://server-site-assignment-eight.vercel.app/jwt', {
                     method: 'POST',
                     credentials:"include",
                     headers: {

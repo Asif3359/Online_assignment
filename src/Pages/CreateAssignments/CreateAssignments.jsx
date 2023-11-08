@@ -28,7 +28,7 @@ const CreateAssignments = () => {
         }
         console.log(assignment);
 
-        axios.post("http://localhost:5000/assignment", assignment,{withCredentials:true})
+        axios.post("https://server-site-assignment-eight.vercel.app/assignment", assignment,{withCredentials:true})
             .then((response) => {
                 // Handle the successful response here
                 console.log('POST request successful', response.data);

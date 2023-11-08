@@ -8,7 +8,7 @@ const SubmittedAssignment = () => {
     const {user}=useContext(AuthContext);
     const [submitAssignments, setSubmitAssignments] = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:5000/submitAssignment`,{withCredentials:true})
+        axios.get(`https://server-site-assignment-eight.vercel.app/submitAssignment`,{withCredentials:true})
             .then(res => {
                 const data = res.data;
                 console.log(data);

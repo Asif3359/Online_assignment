@@ -9,7 +9,7 @@ const PreView = () => {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/submitAssignment/${id}`, { withCredentials: true })
+        axios.get(`https://server-site-assignment-eight.vercel.app/submitAssignment/${id}`, { withCredentials: true })
             .then(res => {
                 const data = res.data;
                 console.log(data);

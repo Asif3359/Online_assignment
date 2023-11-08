@@ -13,7 +13,7 @@ const MyAssignments = () => {
     const [myAssignments, setMyAssignment] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/assignment', { withCredentials: true })
+        axios.get('https://server-site-assignment-eight.vercel.app/assignment', { withCredentials: true })
             .then(res => {
                 const data = res.data;
                 const mySubmitted = data.filter(mySubmit => mySubmit.email == user.email)
@@ -35,7 +35,7 @@ const MyAssignments = () => {
                 .then((willDelete) => {
                     if (willDelete) {
 
-                        axios.delete(`http://localhost:5000/assignment/${_id}`,{withCredentials:true})
+                        axios.delete(`https://server-site-assignment-eight.vercel.app/assignment/${_id}`,{withCredentials:true})
                             .then(res => {
                                 const data = res.data
                                 console.log(data);

@@ -10,7 +10,7 @@ const Services = () => {
     const [services, setServices] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/assignment", { withCredentials: true })
+        axios.get("https://server-site-assignment-eight.vercel.app/assignment", { withCredentials: true })
             .then(res => {
                 setServices(res.data);
             })

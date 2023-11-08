@@ -14,7 +14,7 @@ const UpdateAssignment = () => {
     // console.log(assignment);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/assignment/${id}`, { withCredentials: true })
+        axios.get(`https://server-site-assignment-eight.vercel.app/assignment/${id}`, { withCredentials: true })
             .then(res => {
                 const data = res.data;
                 console.log(data);
@@ -40,7 +40,7 @@ const UpdateAssignment = () => {
         }
         console.log(updatedAssignment);
 
-        axios.put(`http://localhost:5000/assignment/${assignment._id}`, updatedAssignment, { withCredentials: true })
+        axios.put(`https://server-site-assignment-eight.vercel.app/assignment/${assignment._id}`, updatedAssignment, { withCredentials: true })
             .then(res => {
                 const data = res.data;
                 console.log(data);

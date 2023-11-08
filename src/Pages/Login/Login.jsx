@@ -25,7 +25,7 @@ const Login = () => {
                     lastLogAt: user.metadata?.lastSignInTime,
                     displayName: user.displayName,
                 }
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://server-site-assignment-eight.vercel.app/jwt', {
                     method: 'POST',
                     credentials:"include",
                     headers: {
@@ -87,7 +87,7 @@ const Login = () => {
                     displayName: user.displayName,
                 }
                 // console.log(user);
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://server-site-assignment-eight.vercel.app/jwt', {
                     method: 'POST',
                     credentials:"include",
                     headers: {

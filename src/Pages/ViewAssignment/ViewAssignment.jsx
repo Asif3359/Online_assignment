@@ -1,8 +1,19 @@
-import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link, useLoaderData, useParams } from 'react-router-dom';
 
 const ViewAssignment = () => {
-    const assignment = useLoaderData();
+    // const assignment = useLoaderData();
+    const { id } = useParams();
+    const [assignment, setAssignment] = useState({})
+
+    useEffect(() => {
+        axios.get(`https://server-site-assignment-eight.vercel.app/assignment/${id}`)
+            .then(res=>{
+                const data = res.data;
+                setAssignment(data);
+            })
+    }, [])
     return (
         <div className=' py-5 container mx-auto '>
 
@@ -16,7 +27,7 @@ const ViewAssignment = () => {
                     <h5 className="mb-2  font-bold tracking-tight ">Marks: {assignment.marks}</h5>
                     <h5 className="mb-2  font-bold tracking-tight ">Submission Date : {assignment.dueDate}</h5>
                     <p className="mb-3 font-normal  ">{assignment.description}</p>
-                    <Link to={`/take/${assignment._id}`}  className='btn btn-sm btn-primary'>Take Assignment</Link >
+                    <Link to={`/take/${assignment._id}`} className='btn btn-sm btn-primary'>Take Assignment</Link >
                 </div>
             </div>
 
